@@ -7,6 +7,7 @@ const fs = require('fs')
 */
 const args = process.argv;
 const parameter = args[args.length - 1];
+const path = require('path').dirname(require.main.filename)
 
 /*
 * Se o argumento recebido for uma URL ele faz a request com a url
@@ -27,11 +28,10 @@ if(parameter.includes("http://") || parameter.includes("https://")) {
             .then(result => {
                 let texto = result.text
                 console.log(texto)
-                process.exit(0)
+                saveText(texto)
             })
     })
 } else {
-    const path = require('path').dirname(require.main.filename)
     const file = `${path}/${parameter}`
 
     Tesseract.recognize(file)
@@ -40,6 +40,14 @@ if(parameter.includes("http://") || parameter.includes("https://")) {
         .then(result => {
             let texto = result.text
             console.log(texto)
-            process.exit(0)
+            saveText(texto)
         })
+}
+
+saveText = text => {
+    fs.writeFile(`${path}/text.txt`, text, err => {
+        if(err) { throw err; }    
+        console.log("Arquivo salvo");
+        process.exit(0)
+    }); 
 }
