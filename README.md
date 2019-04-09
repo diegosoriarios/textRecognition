@@ -12,5 +12,5 @@ Faz o reconhecimento de texto em imagens utilizando [Tesseract.js](http://tesser
 ```
 
 ### To do
-- [x] Upload de imagens
+- [x] Enviar urls ou imagens locais
 - [ ] Salvar em arquivo texto
